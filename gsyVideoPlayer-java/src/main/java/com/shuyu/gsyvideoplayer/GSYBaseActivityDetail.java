@@ -93,7 +93,7 @@ public abstract class GSYBaseActivityDetail<T extends GSYBaseVideoPlayer> extend
     @Override
     protected void onResume() {
         super.onResume();
-        getGSYVideoPlayer().getCurrentPlayer().onVideoResume();
+        //getGSYVideoPlayer().getCurrentPlayer().onVideoResume();
         if (orientationUtils != null) {
             orientationUtils.setIsPause(false);
         }

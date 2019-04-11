@@ -29,7 +29,7 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <com.example.gsyvideoplayer.video.SampleControlVideo
+    <com.example.gsyvideoplayer.video.MultiSampleVideo
         android:id="@+id/detail_player"
         android:layout_width="match_parent"
         android:layout_height="@dimen/post_media_height" />

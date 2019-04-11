@@ -1,6 +1,7 @@
 package com.example.gsyvideoplayer;
 
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.core.widget.NestedScrollView;
@@ -21,6 +22,7 @@ import com.shuyu.gsyvideoplayer.utils.Debuger;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -254,7 +256,10 @@ public class DetailPlayer extends AppCompatActivity {
 
         //String url =  "http://video.7k.cn/app_video/20171202/6c8cf3ea/v.m3u8.mp4";
         //String url =  "http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8";
-        String url =  "http://wdquan-space.b0.upaiyun.com/VIDEO/2018/11/22/ae0645396048_hls_time10.m3u8";
+        //String url =  "http://wdquan-space.b0.upaiyun.com/VIDEO/2018/11/22/ae0645396048_hls_time10.m3u8";
+        //String url =  "videosgz.etwyy.com/UploadFile/Video/道路运输防御性驾驶和不安全驾驶习惯纠正之五.flv";
+        String url = "http://videosgz.etwyy.com/UploadFile/Video/" + URLEncoder.encode("道路运输防御性驾驶和不安全驾驶习惯纠正之五") + ".flv";
+        Debuger.printfError(url);
         //String url =  "https://cdn61.ytbbs.tv/cn/tv/55550/55550-1/play.m3u8?md5=v4sI4lWlo4XojzeAjgBGaQ&expires=1521204012&token=55550";
         //String url =  "http://1253492636.vod2.myqcloud.com/2e5fc148vodgzp1253492636/d08af82d4564972819086152830/plHZZoSkje0A.mp4";
 

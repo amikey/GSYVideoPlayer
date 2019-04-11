@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.gsyvideoplayer.utils.CommonUtil;
 import com.example.gsyvideoplayer.utils.JumpUtils;
+import com.example.gsyvideoplayer.video.MultiSampleVideo;
 import com.example.gsyvideoplayer.video.SampleControlVideo;
 import com.shuyu.gsyvideoplayer.GSYBaseActivityDetail;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
@@ -55,7 +56,7 @@ public class DetailControlActivity extends GSYBaseActivityDetail<StandardGSYVide
     NestedScrollView postDetailNestedScroll;
 
     @BindView(R.id.detail_player)
-    SampleControlVideo detailPlayer;
+    MultiSampleVideo multiSampleVideo;
 
     @BindView(R.id.activity_detail_player)
     RelativeLayout activityDetailPlayer;
@@ -101,7 +102,7 @@ public class DetailControlActivity extends GSYBaseActivityDetail<StandardGSYVide
 
         initGifHelper();
 
-        detailPlayer.setLockClickListener(new LockClickListener() {
+        multiSampleVideo.setLockClickListener(new LockClickListener() {
             @Override
             public void onClick(View view, boolean lock) {
                 //if (orientationUtils != null) {
@@ -167,7 +168,7 @@ public class DetailControlActivity extends GSYBaseActivityDetail<StandardGSYVide
 
     @Override
     public StandardGSYVideoPlayer getGSYVideoPlayer() {
-        return detailPlayer;
+        return multiSampleVideo;
     }
 
     @Override
@@ -178,6 +179,8 @@ public class DetailControlActivity extends GSYBaseActivityDetail<StandardGSYVide
         return new GSYVideoOptionBuilder()
                 .setThumbImageView(imageView)
                 .setUrl(url)
+                .setPlayTag(hashCode() + "f")
+                .setPlayPosition(hashCode())
                 .setCacheWithPlay(true)
                 .setVideoTitle(" ")
                 .setIsTouchWiget(true)
@@ -199,6 +202,10 @@ public class DetailControlActivity extends GSYBaseActivityDetail<StandardGSYVide
         mGifCreateHelper.cancelTask();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     /*******************************竖屏全屏开始************************************/
 
@@ -244,14 +251,14 @@ public class DetailControlActivity extends GSYBaseActivityDetail<StandardGSYVide
     /*******************************竖屏全屏结束************************************/
 
     private void initGifHelper() {
-        mGifCreateHelper = new GifCreateHelper(detailPlayer, new GSYVideoGifSaveListener() {
+        mGifCreateHelper = new GifCreateHelper(multiSampleVideo, new GSYVideoGifSaveListener() {
             @Override
             public void result(boolean success, File file) {
-                detailPlayer.post(new Runnable() {
+                multiSampleVideo.post(new Runnable() {
                     @Override
                     public void run() {
                         loadingView.setVisibility(View.GONE);
-                        Toast.makeText(detailPlayer.getContext(), "创建成功", Toast.LENGTH_LONG).show();
+                        Toast.makeText(multiSampleVideo.getContext(), "创建成功", Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -318,7 +325,7 @@ public class DetailControlActivity extends GSYBaseActivityDetail<StandardGSYVide
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     void shotImage(final View v) {
         //获取截图
-        detailPlayer.taskShotPic(new GSYVideoShotListener() {
+        multiSampleVideo.taskShotPic(new GSYVideoShotListener() {
             @Override
             public void getBitmap(Bitmap bitmap) {
                 if (bitmap != null) {
@@ -357,8 +364,8 @@ public class DetailControlActivity extends GSYBaseActivityDetail<StandardGSYVide
 
     private void resolveNormalVideoUI() {
         //增加title
-        detailPlayer.getTitleTextView().setVisibility(View.GONE);
-        detailPlayer.getBackButton().setVisibility(View.GONE);
+        multiSampleVideo.getTitleTextView().setVisibility(View.GONE);
+        multiSampleVideo.getBackButton().setVisibility(View.GONE);
     }
 
     /**
@@ -378,12 +385,12 @@ public class DetailControlActivity extends GSYBaseActivityDetail<StandardGSYVide
             speed = 1;
         }
         changeSpeed.setText("播放速度：" + speed);
-        detailPlayer.setSpeedPlaying(speed, true);
+        multiSampleVideo.setSpeedPlaying(speed, true);
     }
 
 
     private void showToast(final String tip) {
-        detailPlayer.post(new Runnable() {
+        multiSampleVideo.post(new Runnable() {
             @Override
             public void run() {
                 Toast.makeText(DetailControlActivity.this, tip, Toast.LENGTH_LONG).show();
